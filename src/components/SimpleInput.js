@@ -1,62 +1,52 @@
-
-import  {  useState} from "react";
-
-
-const SimpleInput = () => {
+import { useState } from "react";
 
 
-  const [enteredUsername , setEnteredUserName ]=useState('')
-  const [enteredValidName ,setEnterValidName ]=useState(false)
+
+const SimpleInput = (props) => {
+
+
+const [enteUserName, setEnterValidUserName]=useState("")
+const [isNameValid, setIsNameValid] =useState(false)
+
+
+const onChangeHandler= (event)=>{
+  setEnterValidUserName(event.target.value)
+  if(event.target.value !== "")
+  setIsNameValid(false)
  
-
-
-const  onBlurHandler = ()=>{
-  if(enteredUsername.trim() === ""){
-    setEnterValidName(true)
-  }
 }
-
-const nameChangeHandler =(event)=>{
-  setEnteredUserName(event.target.value)
-  if(event.target.value  !== ""){
-    setEnterValidName(false)
-  }
-}
-
-const formSubmiteHandler =(event)=>{
+const onSubmitHandler=(event)=>{
   event.preventDefault();
-
-  if(enteredUsername.trim() === ""){
-    setEnterValidName(true)
-    return;
-    
+  if (enteUserName.trim()===""){
+    setIsNameValid(true)
   }
-  setEnterValidName(false)
+  console.log(enteUserName)
+  setEnterValidUserName('')
+ }
 
+ const onBlurHandler=()=>{
+  if (enteUserName.trim()===""){
+    setIsNameValid(true)
+  }
+ }
 
-  console.log(enteredUsername)
+const conditionStyle= isNameValid ? 'form-control invalid ' : 'form-control';
 
-setEnteredUserName('')
-
-}
-const inputClassName = enteredValidName ?  
-'form-control invalid' :
- 'form-control';
 
 
 
   return (
-    <form onSubmit={formSubmiteHandler}>
-      <div className= {inputClassName}>
+    <form onSubmit={onSubmitHandler }>
+      <div className={conditionStyle}>
         <label htmlFor='name'>Your Name</label>
-        <input    
-        onChange={nameChangeHandler} 
-        onBlur={onBlurHandler}
+        <input 
         type='text' 
         id='name'
-        value={enteredUsername}
+        onChange={onChangeHandler}
+        onBlur={onBlurHandler}
+        value={enteUserName}
          />
-      {enteredValidName && <p className="error-text"> please enter a valid Name </p>}
+         {isNameValid && <p className="form-control invalid">Please Enter A valid Name</p>}
       </div>
       <div className="form-actions">
         <button>Submit</button>
