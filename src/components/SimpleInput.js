@@ -14,13 +14,13 @@ const [FormIsValid, setIsFormValid]=useState(true)
 const onChangeHandler= (event)=>{
   setEnterValidUserName(event.target.value)
  
-  if(event.target.value.trim() !== "" && enterEmail.trim() !== "")
+  if(event.target.value.trim() !== "" && enterEmail.trim() !== "" && enterEmail.includes('@'))
   setIsFormValid(false)
 setIsNameValid(false)
 }
 const onChangeEmailHandler=(event)=>{
   setEnterEmail(event.target.value)
-  if (event.target.value.trim() !== "" && enteUserName.trim() !=="")
+  if (event.target.value.trim() !== "" && enteUserName.trim() !=="" && enterEmail.includes('@'))
   setIsFormValid(false)
   setIsEmailValid(false)
 }
@@ -40,7 +40,7 @@ const onBlurHandler=()=>{
 const onSubmitHandler=(event)=>{
   event.preventDefault();
   
-  if (enteUserName.trim()==="" && enterEmail.trim() ===""){
+  if (enteUserName.trim()==="" && enterEmail.trim() ==="" && enterEmail.includes('@')){
    
     setIsNameValid(true)
     setIsEmailValid(true)
@@ -57,14 +57,14 @@ const onSubmitHandler=(event)=>{
 
  
 
-const conditionStyle= isNameValid ? 'form-control invalid ' : 'form-control';
+const conditionStyleName= isNameValid ? 'form-control invalid ' : 'form-control';
 
-
+const conditionStyleEmail = isEmailValid? 'form-control invalid ' :'form-control'
 
 
   return (
     <form onSubmit={onSubmitHandler }>
-      <div className={conditionStyle}>
+      <div className={conditionStyleName}>
         <label htmlFor='name'>Your Name</label>
         <input 
         type='text' 
@@ -81,7 +81,7 @@ const conditionStyle= isNameValid ? 'form-control invalid ' : 'form-control';
       </div>
 
 
-      <div className="form-control">
+      <div className={conditionStyleEmail}>
          <label htmlFor="email"> Enter Email</label>
          <input 
          type="text" 
