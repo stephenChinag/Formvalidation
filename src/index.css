@@ -65,9 +65,9 @@ body {
 
 button {
   font: inherit;
-  background-color: #33362aa9;
+  background-color: #3b2af7a9;
   color: white;
-  border: 1px solid #240370;
+  border: 2px solid #07040d;
   padding: 0.5rem 1.5rem;
   border-radius: 4px;
   cursor: pointer;
@@ -75,10 +75,15 @@ button {
 
 button:hover,
 button:active {
-  background-color: #c0b7a3;
-  border-color: #9e0533;
+  background-color: #c531a2;
+  border-color: #440317;
 }
-
+button:disabled,
+button:disabled:hover,
+button:disabled:active{
+  background-color:#a9a9a9;
+  border: 5px solid rgb(255, 255, 255);
+}
 .form-actions {
   text-align: right;
 }
@@ -99,4 +104,7 @@ button:active {
 
 .error-text {
   color: #b40e0e;
+}
+.emailAdd{
+  padding: auto;
 }

@@ -6,29 +6,56 @@ const SimpleInput = (props) => {
 
 
 const [enteUserName, setEnterValidUserName]=useState("")
+const[enterEmail, setEnterEmail]=useState('')
 const [isNameValid, setIsNameValid] =useState(false)
-
+const [isEmailValid,setIsEmailValid]=useState(false)
+const [FormIsValid, setIsFormValid]=useState(true)
 
 const onChangeHandler= (event)=>{
   setEnterValidUserName(event.target.value)
-  if(event.target.value !== "")
-  setIsNameValid(false)
  
+  if(event.target.value.trim() !== "" && enterEmail.trim() !== "")
+  setIsFormValid(false)
+setIsNameValid(false)
 }
-const onSubmitHandler=(event)=>{
-  event.preventDefault();
-  if (enteUserName.trim()===""){
-    setIsNameValid(true)
+const onChangeEmailHandler=(event)=>{
+  setEnterEmail(event.target.value)
+  if (event.target.value.trim() !== "" && enteUserName.trim() !=="")
+  setIsFormValid(false)
+  setIsEmailValid(false)
+}
+
+const onBlurHandler=()=>{
+  if (enteUserName.trim()===""){  
+    setIsNameValid(true)  
   }
-  console.log(enteUserName)
-  setEnterValidUserName('')
+ }
+ const onBlurEmailHandler=()=>{
+  if(enterEmail.trim() ===""){
+    setIsEmailValid(true)
+    
+  }
  }
 
- const onBlurHandler=()=>{
-  if (enteUserName.trim()===""){
+const onSubmitHandler=(event)=>{
+  event.preventDefault();
+  
+  if (enteUserName.trim()==="" && enterEmail.trim() ===""){
+   
     setIsNameValid(true)
+    setIsEmailValid(true)
   }
+  setIsFormValid(false)
+
+  console.log(enteUserName)
+  console.log(enterEmail)
+ 
+  setEnterValidUserName('')
+  setEnterEmail('')
+  setIsFormValid(true)
  }
+
+ 
 
 const conditionStyle= isNameValid ? 'form-control invalid ' : 'form-control';
 
@@ -42,14 +69,32 @@ const conditionStyle= isNameValid ? 'form-control invalid ' : 'form-control';
         <input 
         type='text' 
         id='name'
+       
         onChange={onChangeHandler}
         onBlur={onBlurHandler}
         value={enteUserName}
          />
-         {isNameValid && <p className="form-control invalid">Please Enter A valid Name</p>}
+        
+         {isNameValid &&  <p className="form-control invalid">Please Enter A valid Name</p>}
+
+        
       </div>
+
+
+      <div className="form-control">
+         <label htmlFor="email"> Enter Email</label>
+         <input 
+         type="text" 
+         id="email"
+         placeholder="@gmail.com"
+         onChange={onChangeEmailHandler}
+         onBlur={onBlurEmailHandler}
+         value={enterEmail}
+         />
+         {isEmailValid && <p>Enter a valid Email</p>}
+         </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={FormIsValid}>Submit</button>
       </div>
     </form>
   );
